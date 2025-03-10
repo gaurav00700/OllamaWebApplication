@@ -1,0 +1,6 @@
+*__pycache__
+*.venv
+*.pptx
+*.log
+*.txt
+*.rdb

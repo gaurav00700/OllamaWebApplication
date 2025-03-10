@@ -1,0 +1,8 @@
+*__pycache__
+*.log
+*.tmp
+*.swp
+*.DS_Store
+*.idea
+*.env
+*.gitignore

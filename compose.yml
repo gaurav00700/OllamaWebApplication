@@ -1,0 +1,73 @@
+name: llm_service  # Project name
+services:
+  # Frontend container
+  frontend:
+    build: frontend
+    ports:
+      - 8501:8500
+    volumes:
+      - .:/workdir
+    environment:
+      - BACKEND_ENDPNT=http://backend:8000/ask
+    networks:
+      - llm_net
+
+  # Redis container (for caching purposes)
+  redis:
+    image: redis:latest
+    # ports:
+    #   - 6379:6379  
+    volumes:
+      # - ./data:/data 
+      - redis-vol:/data 
+    networks:
+      - llm_net
+
+  # Backend container
+  backend:
+    build: backend
+    # ports:
+    #   - 8000:8000
+    volumes:
+      - .:/workdir
+    environment:
+      - LLM_NAME=llama3.2:1b
+      - LLM_HOST_NAME=llm
+      - LLM_PORT=11434
+      - REDIS_HOST_NAME=redis
+      - REDIS_PORT=6379
+    networks:
+      - llm_net
+
+  # LLM container
+  llm:
+    build: model
+    # image: ollama/ollama:latest
+    runtime: nvidia
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              capabilities: ["gpu"]
+              count: all
+    volumes:
+      # - /usr/share/ollama/.ollama:/root/.ollama   # use existing model
+      - llm-vol:/root/.ollama # named volume for caching models
+    # ports:
+    #   - 11433:11434
+    environment:
+     - LLM_NAME=llama3.2:1b
+    networks:
+      - llm_net
+    # entrypoint: ["/usr/bin/bash", "/ollama_entrypoint.sh"]
+
+networks:
+  llm_net:
+    driver: bridge
+
+volumes:
+  llm-vol:
+    driver: local
+  redis-vol:
+   driver: local
