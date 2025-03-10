@@ -23,7 +23,7 @@ def main():
     # Set page title and layout
     st.set_page_config(page_title="AI Help", layout="wide")
     
-    st.balloons()  # Show balloons on page load
+    # st.balloons()  # Show balloons on page load
 
     # Title
     # st.title("LLM Assistant", anchor="center")

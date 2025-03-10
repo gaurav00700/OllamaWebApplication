@@ -4,7 +4,7 @@ services:
   frontend:
     build: frontend
     ports:
-      - 8501:8500
+      - 8500:8500
     volumes:
       - .:/workdir
     environment:
@@ -31,7 +31,7 @@ services:
     volumes:
       - .:/workdir
     environment:
-      - LLM_NAME=llama3.2:1b
+      - LLM_NAME=qwen2.5:7b
       - LLM_HOST_NAME=llm
       - LLM_PORT=11434
       - REDIS_HOST_NAME=redis
@@ -57,7 +57,7 @@ services:
     # ports:
     #   - 11433:11434
     environment:
-     - LLM_NAME=llama3.2:1b
+     - LLM_NAME=qwen2.5:7b
     networks:
       - llm_net
     # entrypoint: ["/usr/bin/bash", "/ollama_entrypoint.sh"]
