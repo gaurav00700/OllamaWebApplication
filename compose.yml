@@ -1,4 +1,4 @@
-name: llm_service  # Project name
+name: llm_app  # Project name
 services:
   # Frontend container
   frontend:

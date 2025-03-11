@@ -7,7 +7,7 @@ import os
 from pydantic import BaseModel, Field
 from typing import Optional, List
 
-LLM_NAME = os.environ.get("LLM_NAME", "llama3.2:1b")
+LLM_NAME = os.environ.get("LLM_NAME", "qwen2.5:0.5b")
 LLM_HOST_NAME = os.environ.get("LLM_HOST_NAME", "localhost")
 LLM_PORT = os.environ.get("LLM_PORT", 11434)
 REDIS_HOST_NAME = os.environ.get("REDIS_HOST_NAME", "localhost")
