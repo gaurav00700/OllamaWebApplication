@@ -15,7 +15,11 @@ This repository contains a web application that allows users to interact with la
 ### Preview
 Application Architecture |
 :-------------------------:
-<img src="assets/architecture.png" style="display: block; margin-left: auto; margin-right: auto; max-width: 57%; height: auto;" >
+<img src="assets/architecture.png" style="display: block; margin-left: auto; margin-right: auto; max-width: 55%; height: auto;">
+
+Frontend Interface |
+:-------------------------:
+<img src="assets/frontend.png" style="display: block; margin-left: 415px; margin-right: auto; max-width: 55%; height: auto;" >
 
 ### Prerequisites
 - Docker
