@@ -2,6 +2,7 @@ import os
 import logging
 import streamlit as st
 import requests
+import subprocess
 
 # Endpoint for the backend API
 BACKEND_ENDPNT = os.environ.get("BACKEND_ENDPNT", "http://localhost:8000/ask")
@@ -89,4 +90,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+    # subprocess.call(["streamlit", "run", "frontend/app.py", "--server.port", "8500", "--server.address", "0.0.0.0"])
     # streamlit run frontend/app.py --server.port 8500 --server.address 0.0.0.0
