@@ -22,8 +22,10 @@ Application Architecture |
 - Docker Compose 
 - GPU support for faster inference if you have one available.
   
-### Installation
+### Installation and Usage
 
 1. Clone the repository: `git clone git@github.com:gaurav00700/OllamaWebApplication.git`
 2. Navigate to the project directory: `cd OllamaWebApplication`
-3. Run the docker-compose command to start the application: `docker-compose up -d`
+3. Run the docker-compose command to start the application: `docker-compose up -d` 
+   
+   (Change the LLM_NAME in `.env` file according to your preference.)
