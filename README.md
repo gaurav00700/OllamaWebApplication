@@ -3,7 +3,7 @@
 
 ### Introduction
 
-This repository contains a web application that allows users to interact with large language models (LLMs) through an intuitive interface. The application is built using Streamlit, a Python library for building data applications. It connects to an Ollama backend server, which provides access to various LLMs.
+This repository contains a web application that allows users to interact with large language models (LLMs) through an intuitive interface. The application is built using Streamlit. It connects to an Ollama backend server, which provides access to various LLMs. CI/CD is implemented to automate the build and deployment process, ensuring that the application is always up-to-date.
 
 ### Features
 
@@ -11,6 +11,7 @@ This repository contains a web application that allows users to interact with la
 - **LLM Selection**: Users can select different LLMs available on the [Ollama](https://ollama.com/search) backend server.
 - **Inference Speed**: The application leverages Docker Compose to run the frontend and backend services, which can be optimized for faster inference using GPU support if available.
 - **Cache**: Redis is used as a caching mechanism to store frequently accessed queries and responses, reducing redundant computations.
+- **CI/CD**: Continuous Integration and Continuous Deployment (CI/CD) is implemented using GitHub Actions to automate the build and deployment process.
 
 ### Preview
 Application Architecture |
