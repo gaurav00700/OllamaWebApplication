@@ -41,4 +41,4 @@ jobs:
           type: now
           from_branch: dev
           target_branch: master
-          github_token: ${{ secrets.MergeToMaster }}
+          github_token: ${{ secrets.MERGETOMASTER }}
