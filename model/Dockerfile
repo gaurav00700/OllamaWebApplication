@@ -7,4 +7,4 @@ COPY ./ollama_entrypoint.sh /ollama_entrypoint.sh
 ENV LLM_NAME=llama3.2:1b
 
 # run the entrypoint script on container startup
-ENTRYPOINT ["/usr/bin/bash", "/ollama_entrypoint.sh"]
+# ENTRYPOINT ["/usr/bin/bash", "/ollama_entrypoint.sh"]
