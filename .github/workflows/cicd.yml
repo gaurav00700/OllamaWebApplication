@@ -55,7 +55,12 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_TOKEN }}
-          
+
+      - name: Check pwd and ls -la
+        run: |
+          echo "=====Inside the CI/CD pipeline====="
+          pwd && ls -la          
+      
       - name: Build and push llm Docker image
         uses: docker/build-push-action@v4
         with:
@@ -66,11 +71,6 @@ jobs:
             
       - name: Image digest
         run: echo ${{ steps.build-and-publish.outputs.digest }}
-
-      - name: Check pwd and ls -la
-        run: |
-          echo "=====Inside the CI/CD pipeline====="
-          pwd && ls -la
       
       - name: Build and push backend Docker image
         uses: docker/build-push-action@v4
