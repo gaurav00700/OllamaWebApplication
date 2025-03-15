@@ -27,7 +27,9 @@ jobs:
             ${runner.os}-pip-
       
       - name: Install dependencies
-        run: pip install --upgrade pip && pip install -r requirements.txt
+        run: |
+          python -m pip install --upgrade pip
+          pip install pytest fastapi uvicorn httpx requests redis
       
       - name: Run tests
         run: pytest
@@ -63,7 +65,15 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_TOKEN }}
-      
+
+      # - name: Build and push Docker image
+      #   uses: docker/build-push-action@v4
+      #   with:
+      #     context: .
+      #     file: backend/Dockerfile
+      #     push: true
+      #     tags: ${{ secrets.DOCKER_USERNAME }}/llm_app-backend:latest
+
       - name: Push Docker image
         run: |
           docker push llm_app-backend:latest
