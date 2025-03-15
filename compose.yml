@@ -2,7 +2,9 @@ name: llm_app  # Project name
 services:
   # Frontend container
   frontend:
-    build: frontend
+    # build: frontend
+    image: gaurav00700/llm_app-frontend:latest
+    container_name: llm_app-frontend
     ports:
       - 8500:8500
     volumes:
@@ -15,6 +17,7 @@ services:
   # Redis container (for caching purposes)
   redis:
     image: redis:latest
+    container_name: llm_app-redis
     # ports:
     #   - 6379:6379  
     volumes:
@@ -25,7 +28,9 @@ services:
 
   # Backend container
   backend:
-    build: backend
+    # build: backend
+    image: gaurav00700/llm_app-backend:latest
+    container_name: llm_app-backend
     # ports:
     #   - 8000:8000
     volumes:
@@ -41,8 +46,9 @@ services:
 
   # LLM container
   llm:
-    build: model
-    # image: ollama/ollama:latest
+    # build: model
+    image: gaurav00700/llm_app-llm:latest # ollama/ollama:latest
+    container_name: llm_app-llm
     runtime: nvidia
     deploy:
       resources:
