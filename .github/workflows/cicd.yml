@@ -72,4 +72,4 @@ jobs:
       #     docker push llm_app-backend:latest
       
       - name: Image digest
-        run: echo ${{ steps.build-and-publish.outputs.digest }}
+        run: echo ${{ steps.build-and-publish-backend.outputs.digest }}
