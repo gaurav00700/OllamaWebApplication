@@ -1,4 +1,4 @@
-name: CI/CD for Ollama App
+name: Continuous Deployment to DockerHub
 
 on:
   push:
