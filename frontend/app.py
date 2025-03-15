@@ -90,5 +90,5 @@ def main():
 
 if __name__ == "__main__":
     main()
-    # subprocess.call(["streamlit", "run", "frontend/app.py", "--server.port", "8500", "--server.address", "0.0.0.0"])
+    subprocess.call(["streamlit", "run", "frontend/app.py", "--server.port", "8500", "--server.address", "0.0.0.0"])
     # streamlit run frontend/app.py --server.port 8500 --server.address 0.0.0.0

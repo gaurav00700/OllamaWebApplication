@@ -14,5 +14,9 @@ def test_homepage():
     assert response.status_code == 200, "The API did not return a successful status code."
     assert 'name' and 'description' in response_data, "The response data is missing expected fields."
     
-# if __name__ == '__main__':
-#     test_homepage()
+if __name__ == '__main__':
+    import subprocess
+    sys.path.append(os.path.abspath(os.path.join(__file__, '..')))
+
+    # Run pytest tests
+    subprocess.call(["pytest"])
