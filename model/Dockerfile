@@ -1,6 +1,4 @@
-FROM ollama/ollama
-
-RUN pwd && ls -la
+FROM ollama/ollama:latest
 
 # Copy ollama setup script
 COPY ./model/ollama_entrypoint.sh /ollama_entrypoint.sh
