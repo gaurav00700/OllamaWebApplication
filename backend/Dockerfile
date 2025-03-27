@@ -1,6 +1,6 @@
 FROM python:3.9-slim
 
-COPY . /workdir/backend
+COPY ./backend /workdir/backend
 
 WORKDIR /workdir
 

@@ -2,13 +2,16 @@ name: llm_app  # Project name
 services:
   # Frontend container
   frontend:
-    # build: frontend
     image: gaurav00700/llm_app-frontend:latest
+    # build:
+    #   context: .  # Path relative to docker-compose
+    #   dockerfile: ./frontend/Dockerfile  # Dockerfile path
     container_name: llm_app-frontend
     ports:
       - 8500:8500
+    restart: unless-stopped # Options: always, unless-stopped, on-failure, never
     volumes:
-      - .:/workdir
+      - ./data:/workdir/data
     environment:
       - BACKEND_ENDPNT=http://backend:8000/ask
     networks:
@@ -20,21 +23,25 @@ services:
     container_name: llm_app-redis
     # ports:
     #   - 6379:6379  
+    restart: unless-stopped # Options: always, unless-stopped, on-failure, never
     volumes:
-      # - ./data:/data 
+      - ./data:/data 
       - redis-vol:/data 
     networks:
       - llm_net
 
   # Backend container
   backend:
-    # build: backend
     image: gaurav00700/llm_app-backend:latest
+    # build:
+    #   context: .  # Path relative to docker-compose
+    #   dockerfile: ./backend/Dockerfile  # Dockerfile path
     container_name: llm_app-backend
     # ports:
     #   - 8000:8000
+    restart: unless-stopped # Options: always, unless-stopped, on-failure, never
     volumes:
-      - .:/workdir
+      - ./data:/workdir/data
     environment:
       - LLM_NAME=${LLM_NAME}
       - LLM_HOST_NAME=llm
@@ -46,8 +53,10 @@ services:
 
   # LLM container
   llm:
-    # build: model
     image: gaurav00700/llm_app-llm:latest # ollama/ollama:latest
+    # build:
+    #   context: .  # Path relative to docker-compose
+    #   dockerfile: ./model/Dockerfile  # Dockerfile path
     container_name: llm_app-llm
     runtime: nvidia
     deploy:
@@ -62,6 +71,7 @@ services:
       - llm-vol:/root/.ollama # named volume for caching models
     # ports:
     #   - 11433:11434
+    restart: unless-stopped # Options: always, unless-stopped, on-failure, never
     environment:
      - LLM_NAME=${LLM_NAME}
     networks:
