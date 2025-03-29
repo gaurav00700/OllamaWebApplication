@@ -6,3 +6,5 @@
 *.rdb
 *.DS_Store
 *cache
+*argo*
+*helm*
