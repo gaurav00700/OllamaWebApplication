@@ -1,0 +1,68 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: shared-pv
+spec:
+  capacity:
+    storage: 5Gi
+  accessModes:
+    - ReadWriteOnce  # Allow multiple pods to read/write [ReadWriteMany, ReadWriteOnce]
+  persistentVolumeReclaimPolicy: Retain # Data remains after PVC deletion
+  hostPath:
+    path: "/data"  # Must match the mounted path inside Minikube
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: data-pvc
+  namespace: llm-frontend
+spec:
+  accessModes:
+    - ReadWriteOnce  # Allow multiple pods to read/write [ReadWriteMany, ReadWriteOnce]
+  resources:
+    requests:
+      storage: 100Mi  # Gi, Mi
+  # volumeName: shared-pv  # binds to PV
+  # storageClassName: ""  # Manually created PV, so no storage class
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: data-pvc
+  namespace: llm-backend
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 100Mi
+  # volumeName: shared-pv  # binds to PV
+  # storageClassName: ""  # Must be empty to use a manually created PV
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: redis-pvc
+  namespace: llm-redis
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 100Mi
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: llm-pvc
+  namespace: llm-model
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 5Gi

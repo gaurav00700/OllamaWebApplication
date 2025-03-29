@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: llm-frontend
+
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: llm-backend
+
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: llm-redis
+  
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: llm-model

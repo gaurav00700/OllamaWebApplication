@@ -1,0 +1,60 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend
+  namespace: llm-backend
+  # annotations:
+  #   argocd-image-updater.argoproj.io/image-list: backend=ghcr.io/my-org/backend:latest
+  #   argocd-image-updater.argoproj.io/write-back-method: git
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+      - name: backend
+        image: gaurav00700/llm_app-backend:latest
+        # imagePullPolicy: Always  # Always pulls the latest image when the pod restarts
+        ports:
+        - containerPort: 8000
+        env:
+        - name: LLM_NAME
+          valueFrom:
+            configMapKeyRef:
+              name: llm-config
+              key: LLM_NAME
+        - name: LLM_HOST_NAME
+          value: "llm.llm-model.svc.cluster.local"  # <service-name>.<namespace>.svc.cluster.local
+        - name: LLM_PORT
+          value: "11434"
+        - name: REDIS_HOST_NAME
+          value: "redis.llm-redis.svc.cluster.local" # <service-name>.<namespace>.svc.cluster.local
+        - name: REDIS_PORT
+          value: "6379"
+        volumeMounts:
+        - mountPath: /workdir/data
+          name: data-volume
+      volumes:  # Call the volume mount
+      - name: data-volume
+        persistentVolumeClaim:
+          claimName: data-pvc
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend
+  namespace: llm-backend
+spec:
+  type: ClusterIP
+  selector:
+    app: backend
+  ports:
+  - protocol: TCP
+    port: 8000
+    targetPort: 8000

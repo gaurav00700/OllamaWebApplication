@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: llm
+  namespace: llm-model
+  # annotations:
+  #   argocd-image-updater.argoproj.io/image-list: model=ghcr.io/my-org/model:latest
+  #   argocd-image-updater.argoproj.io/write-back-method: git
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: llm
+  template:
+    metadata:
+      labels:
+        app: llm
+    spec:
+      containers:
+      - name: llm
+        image: gaurav00700/llm_app-llm:latest
+        # imagePullPolicy: Always  # Always pulls the latest image when the pod restarts
+        ports:
+        - containerPort: 11434
+        env:
+        - name: LLM_NAME
+          valueFrom:
+            configMapKeyRef:
+              name: llm-config
+              key: LLM_NAME
+        volumeMounts:
+        - mountPath: /root/.ollama
+          name: llm-volume
+        resources:
+          limits:
+            nvidia.com/gpu: 1  # GPU qty
+      volumes:  # Call the volume mount
+      - name: llm-volume
+        persistentVolumeClaim:
+          claimName: llm-pvc
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: llm
+  namespace: llm-model
+spec:
+  type: ClusterIP
+  selector:
+    app: llm
+  ports:
+  - protocol: TCP
+    port: 11434
+    targetPort: 11434
